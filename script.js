@@ -88,33 +88,10 @@ function getDate() {
   $("#currentDay").text(headerDate);
 }
 
-//saves data to localStorage
-function toDos() {
-  localStorage.setItem("myDay", JSON.stringify(myDay));
-}
-
-//sets data in localStorage
-function displaytoDos() {
-  myDay.forEach(function (thisHour) {
-    $(`${thisHour.id}`).val(thisHour.toDos);
-  });
-}
-
-//sets existing localStorage
-function init() {
-  var storedDay = JSON.parse(localStorage.getItem("myDay"));
-
-  if (storedDay) {
-    myDay = storedDay;
-  }
-
-}
-
 getDate();
-
-// creates the planner body
+// planner body
 myDay.forEach(function (thisHour) {
-  // creates timeblocks row
+  //  timeblocks row
   var hourRow = $("<form>").attr({
     class: "row",
   });
@@ -130,7 +107,7 @@ myDay.forEach(function (thisHour) {
     class: "col-md-9 p-0",
   });
 
-  // sets css styling compared to current time
+  // sets css styling to current time
   var plannerData = $("<textarea>");
   hourPlan.append(plannerData);
   plannerData.attr("id", thisHour.id);
@@ -147,25 +124,26 @@ myDay.forEach(function (thisHour) {
       class: "future",
     });
   }
-
-  // creates a save button
   var saveButton = $("<i class='far fa-save fa-lg'></i>");
   var savePlanner = $("<button>").attr({ class: "col-md-1 saveBtn" });
   savePlanner.append(saveButton);
   hourRow.append(hourField, hourPlan, savePlanner);
-});
+  });
 
-//save data to local storage
-$(".saveBtn").on("click", function (e) {
-  e.preventDefault();
-  var saveIndex = $(this)
-    .siblings(".description")
-    .children(".future")
-    .attr("id");
-  myDay[saveIndex].toDos = $(this)
-    .siblings(".description")
-    .children(".future")
-    .val();
-});
-init();
-displaytoDos();
+  $(".saveBtn").on("click", function (e) {
+    e.preventDefault();
+
+})
+
+// function setLocalStorage(toDos) {
+//   var toDo = JSON.parse(localStorage.getItem("toDos")) || []
+//   toDo.push(toDos);
+//   var uniques = [...new Set(toDo)]
+//   localStorage.setItem("toDos", JSON.stringify(uniques));
+// }
+
+
+
+       
+
+
