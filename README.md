@@ -9,4 +9,4 @@ With this day planner you can add tasks to your daily schedule
 
 - save data to local storage 
 
-![] (https://github.com/JacobCounts/Day-Planner/blob/main/images/Screen%20Shot%202020-11-30%20at%208.30.24%20AM.png)
+![] (Images/Screen%20Shot%202020-11-30%20at%208.30.24%20AM.png)
