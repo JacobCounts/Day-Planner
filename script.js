@@ -80,7 +80,7 @@ var myDay = [
   },
 ];
 
-var toDos = [" "];
+
 
 // Date for the header
 function getDate() {
@@ -89,8 +89,9 @@ function getDate() {
 }
 
 getDate();
+// var toDos = JSON.parse(localStorage.getItem("toDos")) || [" ", " ", " ", " "," ", " ", " ", " ",]
 // planner body
-myDay.forEach(function (thisHour) {
+myDay.forEach(function (thisHour, i) {
   //  timeblocks row
   var hourRow = $("<form>").attr({
     class: "row",
@@ -111,6 +112,8 @@ myDay.forEach(function (thisHour) {
   var plannerData = $("<textarea>");
   hourPlan.append(plannerData);
   plannerData.attr("id", thisHour.id);
+  var rowText = JSON.parse(localStorage.getItem(`row${thisHour.id}`)) || " ";
+  plannerData.val(rowText);
   if (thisHour.time < moment().format("HH")) {
     plannerData.attr({
       class: "past",
@@ -124,23 +127,57 @@ myDay.forEach(function (thisHour) {
       class: "future",
     });
   }
-  var saveButton = $("<i class='far fa-save fa-lg'></i>");
-  var savePlanner = $("<button>").attr({ class: "col-md-1 saveBtn" });
-  savePlanner.append(saveButton);
-  hourRow.append(hourField, hourPlan, savePlanner);
-  });
-
-  $(".saveBtn").on("click", function (e) {
-    e.preventDefault();
-
+  // creates save button / saves data to local storage 
+  function createButton() {
+    var saveButton = $("<i class='far fa-save fa-lg'></i>");
+    var savePlanner = $("<button>").attr({ class: "col-md-1 saveBtn" });
+    savePlanner.append(saveButton);
+    hourRow.append(hourField, hourPlan, savePlanner);
+    $(".saveBtn").on("click", function (e) {
+      e.preventDefault();
+      setLocalStorage(thisHour.id)
+    });
+    
+  }
+  createButton()
 })
+function setLocalStorage (id) {
+  var item = $(`#${id}`).val()
+  localStorage.setItem(`row${id}`, JSON.stringify(item))
+}
 
-// function setLocalStorage(toDos) {
-//   var toDo = JSON.parse(localStorage.getItem("toDos")) || []
-//   toDo.push(toDos);
-//   var uniques = [...new Set(toDo)]
-//   localStorage.setItem("toDos", JSON.stringify(uniques));
-// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // function setLocalStorage(toDos) {
+    //   var toDo = JSON.parse(localStorage.getItem("toDos")) || []
+    //   // toDo.push(toDos);
+    //   // var items = [...new Set(toDo)]
+    //   for (let i = 0; i < toDo.length; i++) {
+    //     // const element = toDo[i];
+    //     var item = $(`#${i}`).val()
+    //     console.log(item);
+    //     toDo [i] = item
+    //   }
+      
+    //   localStorage.setItem("toDos", JSON.stringify(toDo));
+    // }
+    
+    
+
+
+
+
 
 
 
